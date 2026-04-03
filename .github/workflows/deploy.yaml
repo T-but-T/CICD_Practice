@@ -1,4 +1,4 @@
-name: Deploy ON Push
+name: Check if Code Build
 
 on:
   push:
@@ -11,10 +11,18 @@ jobs:
     steps:
       - name: Clone Codebase
         uses: actions/checkout@v6
+
       - name: Check if file exist
         run: |
           ls -la
+
       - name: Setup npm
         uses: actions/setup-node@v6
         with:
           node-version: "24"
+
+      - name: install Dependencies
+        run: pnpm install
+
+      - name: Run Build
+        run: npm run build 
